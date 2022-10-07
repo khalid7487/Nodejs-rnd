@@ -4,33 +4,52 @@ import { saveUser, getAllUsers, update, deleteById } from "../services/userServi
 const router = express.Router();
 
 const getHandler = async (req, res) => {
-    console.log("get data")
-    const users = await getAllUsers();
-    res.status(200).send(users);
+    
+    try {
+        const users = await getAllUsers();
+        res.status(200).json({ data: users});
+    } catch (err) {
+       res.status(500).json({message: "Something went wrong."});   
+    }
 };
 
 const postHandler = async (req, res) => {
-    const body = req.body;
-    const user = await saveUser(body);
-    res.status(201).send(user._id);
+    
+    try {
+        const body = req.body;
+        const user = await saveUser(body);
+        res.status(201).json({data: user});   
+    } catch (err) {
+        res.status(500).json({message: "Something went wrong."})
+    }
 };
 
 const putHandler = async (req, res) => {
-    const body = req.body;    
-    const user = await update(body);
-    res.status(200).send(user._id);
+    try {
+        const body = req.body;    
+        const user = await update(body);
+        res.status(200).json({data: user});
+
+    } catch (err) {
+        res.status(500).json({message: "Something went wrong."});
+    }
 }
 
 const deleteHandler = async (req, res) => {
-    const id = req.params.id;
-    await deleteById(id);
-    res.status(200).send("User deleted");
+
+    try {
+        const id = req.params.id;
+        await deleteById(id);
+        res.status(200).json({message: "User deleted"});
+    } catch (err) {
+        res.status(500).json({message: "Something went wrong."});
+    }
 }
 
 router.get('/', getHandler);
 router.post('/', postHandler);
 router.put('/', putHandler);
-router.delete('/', deleteHandler);
+router.delete('/:id', deleteHandler);
 
 
 const configure = (app) => {
