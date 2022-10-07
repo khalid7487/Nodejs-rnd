@@ -1,53 +1,56 @@
 import express from "express";
 import { saveUser, getAllUsers, update, deleteById } from "../services/userService";
+import validators from "../models/view-models";
+import { handleValidation } from "../middlewares/handleValidations"
+
 
 const router = express.Router();
 
-const getHandler = async (req, res) => {
+const getHandler = async (req, res, next) => {
     
     try {
         const users = await getAllUsers();
-        res.status(200).json({ data: users});
+        return res.status(200).json({ data: users});
     } catch (err) {
-       res.status(500).json({message: "Something went wrong."});   
+       return next(err, req, res);   
     }
 };
 
-const postHandler = async (req, res) => {
+const postHandler = async (req, res, next) => {
     
     try {
         const body = req.body;
         const user = await saveUser(body);
-        res.status(201).json({data: user});   
+        return res.status(201).json({data: user});   
     } catch (err) {
-        res.status(500).json({message: "Something went wrong."})
+        return next(err, req, res);
     }
 };
 
-const putHandler = async (req, res) => {
+const putHandler = async (req, res, next) => {
     try {
         const body = req.body;    
         const user = await update(body);
-        res.status(200).json({data: user});
+        return res.status(200).json({data: user});
 
     } catch (err) {
-        res.status(500).json({message: "Something went wrong."});
+        return next(err, req, res);
     }
 }
 
-const deleteHandler = async (req, res) => {
+const deleteHandler = async (req, res, next) => {
 
     try {
         const id = req.params.id;
         await deleteById(id);
-        res.status(200).json({message: "User deleted"});
+        return res.status(200).json({message: "User deleted"});
     } catch (err) {
-        res.status(500).json({message: "Something went wrong."});
+        return next(err, req, res);
     }
 }
 
 router.get('/', getHandler);
-router.post('/', postHandler);
+router.post('/',handleValidation(validators.userSchemaValidate), postHandler);
 router.put('/', putHandler);
 router.delete('/:id', deleteHandler);
 
