@@ -1,4 +1,4 @@
-import  express  from "express";
+import  express, { application }  from "express";
 import connectionWithDb from "./mongo";
 import configure from "./controllers";
 import { handleErrors } from './middlewares/handleErrors';
@@ -30,6 +30,34 @@ const processRequest = async(req, res, next) => {
 app.use(processRequest);
 
 connectionWithDb();
+
+const getMessage = (req, res) =>{
+    let obj ={
+        correlationId: req.headers['x-correlation-id'],
+        requestBody: req.body
+    }
+
+    return JSON.stringify(obj);
+}
+
+const fileInfoTransport =  new (winston.transports.DailyRotateFile)(
+    {
+        filename: 'log-info-%DATE%.log',
+        datePattern: 'yyyy-MM-DD-MM'
+    }
+)
+
+const infoLogger =expressWinston.logger({
+    transports:[
+        new winston.transports.Console(),
+        fileInfoTransport
+    ],
+    format: winston.format.combine(winston.format.colorize(), winston.format.json()),
+    meta: false,
+    msg: getMessage
+})
+
+app.use(infoLogger);
 
 configure(app);
 app.use(handleErrors);
