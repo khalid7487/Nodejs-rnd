@@ -1,7 +1,8 @@
 import  express, { application }  from "express";
-import connectionWithDb from "./mongo";
+import {connectionWithDb, uri} from "./mongo";
 import configure from "./controllers";
 import { handleErrors } from './middlewares/handleErrors';
+ 
 
 import winston from "winston";
 import expressWinston from "express-winston";
