@@ -5,22 +5,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node index.js"
+    "test": "jest",
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/preset-env": "^7.19.4",
+    "babel-jest": "^29.2.0",
     "esm": "^3.2.25",
     "express": "^4.18.1",
     "express-winston": "^4.2.0",
     "joi": "^17.6.2",
     "mongoose": "^6.6.2",
     "nodemon": "^2.0.20",
+    "superagent": "^8.0.2",
+    "supertest": "^6.3.0",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1",
     "winston-elasticsearch": "^0.17.1",
     "winston-mongodb": "^5.1.0"
+  },
+  "devDependencies": {
+    "jest": "^29.2.0"
   }
 }

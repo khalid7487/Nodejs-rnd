@@ -1,16 +1,31 @@
 import mongoose from "mongoose";
 
-const log = (msg) => console.log(msg);
 
 export const uri = "mongodb://localhost:27017/parcelkoi";
 const options = {};
 
-export const connectionWithDb  = () =>{
+const log = (msg) => console.log(msg);
+
+export const connectWithDb  = () =>{
     
     mongoose.connect(uri, options, (err, db) => {
        if(err){
-        console.log(err);
+        throw err
        }
-       else log("database connected");   
+    //    else log("database connected");   
     })
 }
+
+// export const uri = "mongodb://localhost:27017/parcelkoi";
+// const options = {};
+
+
+// const log = (msg) => console.log(msg);
+
+// export const connectWithDb = () => {
+//     mongoose.connect(uri, options, (err, db) => {
+//         if (err) {
+//             throw err;
+//         }
+//     });
+// };

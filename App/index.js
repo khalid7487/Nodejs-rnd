@@ -1,6 +1,6 @@
 import express from "express";
 import configure from "./controllers";
-import { connectWithDb, uri } from "./mongo";
+import { connectionWithDb, uri } from "./mongo";
 import { handleErrors } from "./middlewares/handleErrors";
 import winston from "winston";
 import expressWinston from "express-winston";
@@ -27,7 +27,7 @@ const processRequest = async (req, res, next) => {
 
 app.use(processRequest);
 
-connectWithDb();
+connectionWithDb();
 
 const getMessage = (req, res) => {
     let obj = {
