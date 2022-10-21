@@ -5,8 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest ",
-    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node server.js"
+    "test": "jest --runInBand --force-exit",
+    "start": "nodemon --experimental-modules --es-module-specifier-resolution=node ./src/server.js"
   },
   "keywords": [],
   "author": "",
