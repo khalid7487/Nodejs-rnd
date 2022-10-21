@@ -6,6 +6,9 @@ import { ElasticsearchTransport } from "winston-elasticsearch";
 
 
 
+
+
+
 const getMessage = (req, res) => {
     let obj = {
         correlationId: req.headers['x-correlation-id'],
