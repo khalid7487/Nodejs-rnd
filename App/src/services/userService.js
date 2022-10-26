@@ -7,6 +7,9 @@ export const getAllUsers = async () => {
     return users;
 }
 
+
+
+
 export const getUserById = async(id) =>{
     const User = models.User;
     const users = await User.findById(id);
