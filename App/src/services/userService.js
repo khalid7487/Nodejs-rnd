@@ -7,6 +7,12 @@ export const getAllUsers = async () => {
     return users;
 }
 
+export const getUserById = async(id) =>{
+    const User = models.User;
+    const users = await User.findById(id);
+    return users;
+}
+
 export const saveUser = async (user) => {
     const model = new models.User(user);
     const savedUser = await model.save();

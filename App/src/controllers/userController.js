@@ -1,5 +1,5 @@
 import express from "express";
-import { saveUser, getAllUsers, update, deleteById } from "../services/userService";
+import { saveUser, getAllUsers, update, deleteById, getUserById } from "../services/userService";
 import validators from "../models/view-models";
 import { handleValidation } from "../middlewares/index"
 
@@ -15,6 +15,19 @@ const getHandler = async (req, res, next) => {
        return next(err, req, res);   
     }
 };
+
+const getByHandler = async (req, res, next) =>{
+
+    try {
+        const id = req.params.id;        
+        const user = await getUserById(id);
+        res.status(200).json({user});
+    } catch (error) {
+        return next(error, req, res);
+    }
+}
+
+
 
 const postHandler = async (req, res, next) => {
     
@@ -50,6 +63,7 @@ const deleteHandler = async (req, res, next) => {
 }
 
 router.get('/', getHandler);
+router.get('/:id', getByHandler);
 router.post('/',handleValidation(validators.userSchemaValidate), postHandler);
 router.put('/', putHandler);
 router.delete('/:id', deleteHandler);
