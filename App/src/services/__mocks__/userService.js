@@ -1,7 +1,8 @@
 import models from "../../models";
 
+
 let users = [{
-    '_id': '1', 'username': 'test001'
+    'id': '1', 'username': 'test001'
 }];
 
 export const getAllUsers = async () => {
@@ -14,3 +15,18 @@ export const saveUser = async (user) => {
     users.push(model);
     return model;
 };
+
+export const getUserById = async(id) =>{
+    console.log(id, "into mockes");
+    let model = users.find(item => item.id === id);
+    return model
+}
+
+export const update = async (user) =>{
+    users[0].username = user.username;
+    return users[0];
+}
+
+export const deleteById = async(id) =>{
+    users=[];
+}
