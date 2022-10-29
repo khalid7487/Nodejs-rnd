@@ -1,6 +1,6 @@
 import express from "express";
 import { saveUser, getAllUsers, update, deleteById, getUserById } from "../services/userService";
-import validators from "../models/view-models";
+import validators from "../models/request-models";
 import { handleValidation } from "../middlewares/index"
 
 
@@ -69,8 +69,4 @@ router.put('/', putHandler);
 router.delete('/:id', deleteHandler);
 
 
-const configure = (app) => {
-    app.use('/users', router);
-}
-
-export default configure;
+export default router;

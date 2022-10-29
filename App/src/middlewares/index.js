@@ -26,6 +26,10 @@ export const handleRequest = async (req, res, next) => {
 
 export const handleValidation = (validate) => {
     return (req, res, next) => {
+
+        console.log(req.body, "test");
+
+
         const result = validate(req.body);
         const isValid = result.error == null;
         if (isValid) {
