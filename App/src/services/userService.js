@@ -10,12 +10,11 @@ export const getAllUsers = async () => {
 }
 
 
-
-
 export const getUserById = async(id) =>{
     const User = models.User;
-    const users = await User.findById(id);
-    return users;
+    let model = await User.findById(id);
+    let viewModel = new UserViewModel(model);
+    return viewModel;
 }
 
 export const saveUser = async (user) => {
